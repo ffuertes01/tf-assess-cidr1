@@ -19,13 +19,13 @@ jobs:
           node-version: 18
       
       - name: Install dependencies
-        uses: npm install
+        run: npm install
       
       - name: Linter
-        uses: npm run lint
+        run: npm run lint
       
       - name: Formatter
-        uses: npm run prettier
+        run: npm run prettier
 
       - name: Test
         env:
@@ -33,4 +33,4 @@ jobs:
         run: npm run test
       
       - name: Build
-        uses: npm run build
+        run: npm run build
