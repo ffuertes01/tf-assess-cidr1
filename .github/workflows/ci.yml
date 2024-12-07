@@ -13,24 +13,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      # - name: Setup Node
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: 18
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
       
-      # - name:  Install dependencies
-      #   uses: npm install
+      - name: Install dependencies
+        uses: npm install
       
-      # - name: Linter
-      #   uses: npm run lint
+      - name: Linter
+        uses: npm run lint
       
-      # - name: Formatter
-      #   uses: npm run prettier
+      - name: Formatter
+        uses: npm run prettier
 
-      # - name: Test
-      #   env:
-      #     CI: true
-      #   run: npm run test
+      - name: Test
+        env:
+          CI: true
+        run: npm run test
       
-      # - name: Build
-      #   uses: npm run build
+      - name: Build
+        uses: npm run build
