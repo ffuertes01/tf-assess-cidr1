@@ -20,5 +20,5 @@ module "app" {
 }
 
 output "bucket_website_endpoint" {
-    value = app.bucket_website_endpoint
+    value = module.app.bucket_website_endpoint
 }
