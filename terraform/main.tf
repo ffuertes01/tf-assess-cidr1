@@ -49,7 +49,7 @@ resource "aws_s3_bucket_public_access_block" "example" {
   ignore_public_acls      = false
   restrict_public_buckets = false
 
-  dpends_on = [aws_s3_bucket_policy.app_policy]
+  depends_on = [aws_s3_bucket_policy.app_policy]
 }
 
 # Working policy
