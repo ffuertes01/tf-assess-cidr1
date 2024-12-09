@@ -1,22 +1,8 @@
-provider "aws" {
-  region = var.aws_region
-}
-
-# resource "aws_s3_bucket" "app_bucket" {
-#   bucket = "${var.env_name}-${var.app_name}-bucket"
-
-# #   # Enable static website hosting
-# #   website {
-# #     index_document = "index.html"
-# #     error_document = "error.html"
-# #   }
-
-#   tags = {
-#     Name        = "${var.env_name}-${var.app_name}-bucket"
-#     Environment = var.env_name
-#     Project     = var.app_name
-#   }
+# working provider:
+# provider "aws" {
+#   region = var.aws_region
 # }
+
 
 resource "aws_s3_bucket" "app_bucket" {
   bucket = "${var.env_name}-${var.app_name}-bucket"
