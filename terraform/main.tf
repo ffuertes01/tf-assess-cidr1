@@ -114,12 +114,13 @@ data "aws_iam_policy_document" "app_data_policy" {
 #   )
 # }
 
-resource "aws_s3_object" "app_files" {
-  for_each = fileset("${var.build_dir}", "**")
+# Working wit only index.html file
+# resource "aws_s3_object" "app_files" {
+#   for_each = fileset("${var.build_dir}", "**")
 
-  bucket = aws_s3_bucket.app_bucket.id
-  key    = each.value
-  source = "${var.build_dir}/${each.value}"
-  etag   = filemd5("${var.build_dir}/${each.value}")
-  content_type = each.value == "index.html" ? "text/html" : null
-}
+#   bucket = aws_s3_bucket.app_bucket.id
+#   key    = each.value
+#   source = "${var.build_dir}/${each.value}"
+#   etag   = filemd5("${var.build_dir}/${each.value}")
+#   content_type = each.value == "index.html" ? "text/html" : null
+# }
