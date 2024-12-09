@@ -11,6 +11,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ${{ env.tf_actions_working_dir }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,11 +22,31 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.6.0"
+
+      # Define el entorno según la rama
+      - name: Set environment directory
+        run: |
+          if [[ "${{ github.ref_name }}" == "stage" ]]; then
+            echo "environment=terraform/environments/stage" >> $GITHUB_ENV
+          elif [[ "${{ github.ref_name }}" == "prod" ]]; then
+            echo "environment=terraform/environments/prod" >> $GITHUB_ENV
+          elif [[ "${{ github.ref_name }}" == "devel" ]]; then
+            echo "environment=terraform/environments/devel" >> $GITHUB_ENV            
+          else
+            echo "Environment not recognized"
+            exit 1
+          fi
+
+      - name: Change directory
+        run: cd ${{ env.environment }}
       
       - name: Terraform init
+        working-directory: ${{ env.environment }}      
         run: terraform init
+
       
       - name: Terraform Apply
+        working-directory: ${{ env.environment }}      
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
