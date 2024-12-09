@@ -5,7 +5,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "ipv4-app-tf-state"
-    key    = "prod/terraform.tfstate"
+    key    = "devel/terraform.tfstate"
     region = "us-east-2"
     dynamodb_table = "ipv4-app-tf-lock"
     encrypt = true
