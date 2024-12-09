@@ -1,0 +1,17 @@
+name: 'Check PR to Prod'
+
+on:
+  pull_request:
+    branches:
+      - prod
+
+jobs:
+  check-merge-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the source branch is stage
+        run: |
+          if [[ "${{ github.head_ref }}" != "stage" ]]; then
+            echo "Merge into 'prod' is only allowed from 'stage' branch."
+            exit 1
+          fi

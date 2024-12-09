@@ -1,0 +1,17 @@
+name: 'Check PR to Stage'
+
+on:
+  pull_request:
+    branches:
+      - stage  # Aplica a los PRs hacia la rama `stage`
+
+jobs:
+  check-merge-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the source branch is devel
+        run: |
+          if [[ "${{ github.head_ref }}" != "devel" ]]; then
+            echo "Merge into 'stage' is only allowed from 'devel' branch."
+            exit 1
+          fi
