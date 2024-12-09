@@ -15,6 +15,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      # se añade desde aqui el setup de node
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 15.5.1
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+      # #################################### hasta aqui
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
@@ -36,11 +48,10 @@ jobs:
 
       - name: Change directory
         run: cd ${{ env.environment }}
-      
+
       - name: Terraform init
         working-directory: ${{ env.environment }}      
         run: terraform init
-
       
       - name: Terraform Apply
         working-directory: ${{ env.environment }}      
