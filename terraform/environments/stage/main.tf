@@ -1,5 +1,5 @@
 provider "aws" {
-  region = us-east-2
+  region = "us-east-2"
 }
 
 terraform {
@@ -17,4 +17,8 @@ module "app" {
   env_name   = "stage"
   app_name   = "ipv4-app"
   build_dir  = "../../../build"
+}
+
+output "bucket_website_endpoint" {
+    value = module.app.bucket_website_endpoint
 }

@@ -18,3 +18,7 @@ module "app" {
   app_name   = "ipv4-app"
   build_dir  = "../../../build"
 }
+
+output "bucket_website_endpoint" {
+    value = module.app.bucket_website_endpoint
+}

@@ -1,9 +1,3 @@
-# working provider:
-# provider "aws" {
-#   region = var.aws_region
-# }
-
-
 resource "aws_s3_bucket" "app_bucket" {
   bucket = "${var.env_name}-${var.app_name}-bucket"
 
@@ -36,23 +30,6 @@ resource "aws_s3_bucket_public_access_block" "s3_public_block" {
   restrict_public_buckets = false
 }
 
-# Working policy
-# resource "aws_s3_bucket_policy" "app_policy" {
-#   bucket = aws_s3_bucket.app_bucket.id
-
-#   policy = jsonencode({
-#     Version = "2012-10-17"
-#     Statement = [
-#       {
-#         Action    = ["s3:GetObject"]
-#         Effect    = "Allow"
-#         Resource  = "${aws_s3_bucket.app_bucket.arn}/*"
-#         Principal = "*"
-#       }
-#     ]
-#   })
-# }
-
 resource "aws_s3_bucket_policy" "example" {
   bucket = aws_s3_bucket.app_bucket.id
   policy = data.aws_iam_policy_document.app_data_policy.json
@@ -73,6 +50,12 @@ data "aws_iam_policy_document" "app_data_policy" {
     resources = [
       "${aws_s3_bucket.app_bucket.arn}/*"
     ]
+
+    condition {
+      test     = "DateLessThan"
+      variable = "aws:CurrentTime"
+      values = ["2024-12-09T20:11:00Z"]
+    }
   }
 }
 
