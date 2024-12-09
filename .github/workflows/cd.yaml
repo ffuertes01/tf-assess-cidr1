@@ -51,8 +51,8 @@ jobs:
             exit 1
           fi
 
-      - name: Change directory
-        run: cd ${{ env.environment }}
+      # - name: Change directory
+      #   run: cd ${{ env.environment }}
 
       - name: Terraform init
         working-directory: ${{ env.environment }}
